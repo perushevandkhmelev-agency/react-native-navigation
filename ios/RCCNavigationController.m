@@ -72,10 +72,41 @@ NSString const *CALLBACK_ASSOCIATED_ID = @"RCCNavigationController.CALLBACK_ASSO
             [self performAction:@"push" actionParams:mutableParams bridge:bridge];
         }
     }
+
+    NSString *overlayView = [props valueForKeyPath:@"overlay.view"];
+    if (overlayView) {
+      // Pass navigation props
+      NSMutableDictionary *mutablePassPropsOverlay = [passProps mutableCopy];
+      NSDictionary *overlayProps = [props valueForKeyPath:@"overlay.passProps"];
+      if (overlayProps) {
+        [mutablePassPropsOverlay addEntriesFromDictionary:overlayProps];
+      }
+
+      NSDictionary *passPropsOverlay = [NSDictionary dictionaryWithDictionary:mutablePassPropsOverlay];
+      self.overlayView = [[RCTRootView alloc] initWithBridge:bridge moduleName:overlayView initialProperties:passPropsOverlay];
+    }
     
     return self;
 }
 
+- (void)setOverlayView:(RCTRootView *)overlayView {
+  RCTRootView *previousOverlayView = _overlayView;
+
+  if (previousOverlayView) {
+    [previousOverlayView removeFromSuperview];
+  }
+
+  _overlayView = overlayView;
+
+  if (!_overlayView) {
+    return;
+  }
+
+  _overlayView.passThroughTouches = YES;
+  _overlayView.backgroundColor = [UIColor clearColor];
+  _overlayView.frame = self.view.bounds;
+  [self.view addSubview:_overlayView];
+}
 
 - (void)performAction:(NSString*)performAction actionParams:(NSDictionary*)actionParams bridge:(RCTBridge *)bridge {
     BOOL animated = actionParams[@"animated"] ? [actionParams[@"animated"] boolValue] : YES;
