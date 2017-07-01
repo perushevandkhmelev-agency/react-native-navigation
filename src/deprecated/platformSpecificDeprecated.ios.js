@@ -275,6 +275,7 @@ async function startSingleScreenApp(params) {
           titleImage={screen.titleImage}
           component={screen.screen}
           components={components}
+          overlay={params.overlay}
           passProps={passProps}
           style={navigatorStyle}
           leftButtons={navigatorButtons.leftButtons}
