@@ -410,6 +410,11 @@ function navigatorToggleDrawer(navigator, params) {
   }
 }
 
+function navigatorSetDrawerStyle(navigator, params) {
+  const controllerID = navigator.navigatorID.split('_')[0];
+  Controllers.DrawerControllerIOS(controllerID + '_drawer').setStyle(params);
+}
+
 function navigatorToggleTabs(navigator, params) {
   const controllerID = navigator.navigatorID.split('_')[0];
   Controllers.TabBarControllerIOS(controllerID + '_tabs').setHidden({
@@ -709,6 +714,7 @@ export default {
   dismissInAppNotification,
   navigatorSetButtons,
   navigatorSetDrawerEnabled,
+  navigatorSetDrawerStyle,
   navigatorSetTitle,
   navigatorSetSubtitle,
   navigatorSetStyle,
