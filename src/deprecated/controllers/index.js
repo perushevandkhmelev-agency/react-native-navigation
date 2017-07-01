@@ -75,6 +75,9 @@ function _validateDrawerProps(layout) {
         }
       })
     }
+    else if (drawerProps.type === "KYDrawerController") {
+      shouldSetToDefault = false;
+    }
 
     if (shouldSetToDefault) {
       console.warn("Set to default type=MMDrawer animationType=slide");
