@@ -182,6 +182,14 @@ function getCurrentlyVisibleScreenId() {
   return platformSpecific.getCurrentlyVisibleScreenId();
 }
 
+function showOverlay(params = {}) {
+  return platformSpecific.showOverlay(params);
+}
+
+function removeOverlay() {
+  return platformSpecific.removeOverlay();
+}
+
 async function getLaunchArgs() {
   return await platformSpecific.getLaunchArgs();
 }
@@ -205,5 +213,7 @@ export default {
   handleDeepLink: handleDeepLink,
   isAppLaunched: isAppLaunched,
   isRootLaunched: isRootLaunched,
+  showOverlay: showOverlay,
+  removeOverlay: removeOverlay,
   getLaunchArgs
 };
