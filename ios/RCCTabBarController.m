@@ -83,7 +83,9 @@
     self.delegate = self;
     
     self.tabBar.translucent = YES; // default
-    
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onRNReload) name:RCTJavaScriptWillStartLoadingNotification object:nil];
+
     UIColor *buttonColor = nil;
     UIColor *selectedButtonColor = nil;
     UIColor *labelColor = nil;
@@ -270,6 +272,16 @@
   if (_overlayView) {
     [self.view bringSubviewToFront:_overlayView];
   }
+}
+
+- (void)dealloc {
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:RCTJavaScriptWillStartLoadingNotification object:nil];
+  self.overlayView = nil;
+}
+
+- (void)onRNReload {
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:RCTJavaScriptWillStartLoadingNotification object:nil];
+  self.overlayView = nil;
 }
 
 - (void)performAction:(NSString*)performAction actionParams:(NSDictionary*)actionParams bridge:(RCTBridge *)bridge completion:(void (^)(void))completion {
