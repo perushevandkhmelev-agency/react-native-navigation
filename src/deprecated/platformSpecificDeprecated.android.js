@@ -34,6 +34,10 @@ async function startSingleScreenApp(params) {
       params.appStyle.orientation = getOrientation(params);
     }
 
+  if (params.overlay) {
+    params.overlay = createOverlay(params.overlay)
+  }
+
   return await newPlatformSpecific.startApp(params);
 }
 
@@ -50,6 +54,7 @@ function createSingleScreen(params) {
   screen.screenId = screen.screen;
   screen = adaptNavigationStyleToScreenStyle(screen);
   screen = adaptNavigationParams(screen);
+
   return screen;
 }
 
@@ -259,6 +264,19 @@ function convertStyleParams(originalStyleObject) {
     ret.topBarReactViewInitialProps = {passPropsKey};
   }
   return ret;
+}
+
+function createOverlay(overlayParams) {
+  if (!overlayParams.screen) {
+    console.error('createOverlay(overlayParams): overlay must include a screen property');
+    return;
+  }
+
+  let result = Object.assign({}, overlayParams);
+  result.screenId = result.screen;
+  addNavigatorParams(result);
+  result = adaptNavigationParams(result);
+  return result
 }
 
 function convertDrawerParamsToSideMenuParams(drawerParams) {
@@ -799,6 +817,13 @@ function dismissContextualMenu() {
   newPlatformSpecific.dismissContextualMenu();
 }
 
+function showOverlay(params) {
+}
+
+function removeOverlay() {
+}
+
+
 async function isAppLaunched() {
   return await newPlatformSpecific.isAppLaunched();
 }
@@ -848,5 +873,7 @@ export default {
   isAppLaunched,
   isRootLaunched,
   getCurrentlyVisibleScreenId,
+  showOverlay,
+  removeOverlay,
   getLaunchArgs
 };
