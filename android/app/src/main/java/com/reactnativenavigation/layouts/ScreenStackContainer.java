@@ -11,7 +11,7 @@ public interface ScreenStackContainer extends LeftButtonOnClickListener {
 
     void popToRoot(ScreenParams params);
 
-    void newStack(ScreenParams params);
+    void newStack(ScreenParams params, Promise onNewStackComplete);
 
     void destroy();
 }

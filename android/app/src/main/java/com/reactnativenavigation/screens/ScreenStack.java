@@ -54,7 +54,7 @@ public class ScreenStack {
         keyboardVisibilityDetector = new KeyboardVisibilityDetector(parent);
     }
 
-    public void newStack(final ScreenParams params, LayoutParams layoutParams) {
+    public void newStack(final ScreenParams params, LayoutParams layoutParams, final Promise onNewStackComplete) {
         final Screen nextScreen = ScreenFactory.create(activity, params, leftButtonOnClickListener);
         final Screen previousScreen = stack.peek();
         if (isStackVisible) {
@@ -62,11 +62,13 @@ public class ScreenStack {
                 @Override
                 public void onDisplay() {
                     removeElementsBelowTop();
+                    if (onNewStackComplete != null) onNewStackComplete.resolve(null);
                 }
             });
         } else {
             pushScreenToInvisibleStack(layoutParams, nextScreen, previousScreen, null);
             removeElementsBelowTop();
+            if (onNewStackComplete != null) onNewStackComplete.resolve(null);
         }
     }
 
