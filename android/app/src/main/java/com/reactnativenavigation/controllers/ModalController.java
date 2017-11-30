@@ -74,8 +74,8 @@ class ModalController implements ScreenStackContainer, Modal.OnModalDismissedLis
     }
 
     @Override
-    public void newStack(ScreenParams params) {
-        stack.peek().newStack(params);
+    public void newStack(ScreenParams params, Promise onNewStackComplete) {
+        stack.peek().newStack(params, onNewStackComplete);
     }
 
     @Override

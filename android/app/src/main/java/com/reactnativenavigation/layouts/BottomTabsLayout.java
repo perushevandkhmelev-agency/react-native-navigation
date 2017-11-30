@@ -422,11 +422,11 @@ public class BottomTabsLayout extends BaseLayout implements AHBottomNavigation.O
     }
 
     @Override
-    public void newStack(final ScreenParams params) {
+    public void newStack(final ScreenParams params, final Promise onNewStackComplete) {
         performOnStack(params.getNavigatorId(), new Task<ScreenStack>() {
             @Override
             public void run(ScreenStack screenStack) {
-                screenStack.newStack(params, createScreenLayoutParams(params));
+                screenStack.newStack(params, createScreenLayoutParams(params), onNewStackComplete);
                 if (isCurrentStack(screenStack)) {
                     setStyleFromScreen(params.styleParams);
                     alignSnackbarContainerWithBottomTabs((LayoutParams) snackbarAndFabContainer.getLayoutParams(), params.styleParams);

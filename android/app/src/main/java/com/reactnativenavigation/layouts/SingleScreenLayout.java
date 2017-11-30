@@ -171,8 +171,8 @@ public class SingleScreenLayout extends BaseLayout {
     }
 
     @Override
-    public void newStack(final ScreenParams params) {
-        stack.newStack(params, new LayoutParams(MATCH_PARENT, MATCH_PARENT));
+    public void newStack(final ScreenParams params, Promise onNewStackComplete) {
+        stack.newStack(params, new LayoutParams(MATCH_PARENT, MATCH_PARENT), onNewStackComplete);
         EventBus.instance.post(new ScreenChangedEvent(params));
     }
 
