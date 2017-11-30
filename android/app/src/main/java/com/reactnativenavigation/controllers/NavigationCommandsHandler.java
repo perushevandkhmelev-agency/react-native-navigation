@@ -92,7 +92,7 @@ public class NavigationCommandsHandler {
         });
     }
 
-    public static void newStack(Bundle screenParams) {
+    public static void newStack(Bundle screenParams, final Promise onNewStackComplete) {
         final NavigationActivity currentActivity = NavigationActivity.currentActivity;
         if (currentActivity == null) {
             return;
@@ -102,7 +102,7 @@ public class NavigationCommandsHandler {
         NavigationApplication.instance.runOnMainThread(new Runnable() {
             @Override
             public void run() {
-                currentActivity.newStack(params);
+                currentActivity.newStack(params, onNewStackComplete);
             }
         });
     }

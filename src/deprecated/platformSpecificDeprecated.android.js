@@ -122,7 +122,7 @@ function navigatorResetTo(navigator, params) {
   adapted = adaptNavigationParams(adapted);
   adapted.timestamp = Date.now();
 
-  newPlatformSpecific.newStack(adapted);
+  return newPlatformSpecific.newStack(adapted);
 }
 
 function adaptNavigationStyleToScreenStyle(screen) {

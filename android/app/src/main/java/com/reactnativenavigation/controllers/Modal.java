@@ -184,8 +184,8 @@ class Modal extends Dialog implements DialogInterface.OnDismissListener, ScreenS
     }
 
     @Override
-    public void newStack(ScreenParams params) {
-        layout.newStack(params);
+    public void newStack(ScreenParams params, Promise onNewStackComplete) {
+        layout.newStack(params, onNewStackComplete);
     }
 
     boolean containsNavigator(String navigatorId) {

@@ -25,7 +25,7 @@ function popToRoot(screenParams) {
 
 function newStack(screenParams) {
   savePassProps(screenParams);
-  NativeReactModule.newStack(screenParams);
+  return NativeReactModule.newStack(screenParams);
 }
 
 function toggleTopBarVisible(screenInstanceID, visible, animated) {
